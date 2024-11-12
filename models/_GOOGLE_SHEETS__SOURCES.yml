@@ -1,0 +1,27 @@
+version: 2
+
+sources:
+
+  - name: GOOGLE_SHEETS # name of the source 
+    schema: GOOGLE_SHEETS # this is the schema our raw data lives in
+    database: ALUMNO21_DEV_BRONZE_DB # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 15, period: day}
+      error_after: {count: 25, period: day}
+
+    tables:
+
+      - name: BUDGET
+        loaded_at_field: _FIVETRAN_SYNCED
+        columns:
+          - name: _ROW
+          - name: PRODUCT_ID
+          - name: QUANTITY
+          - name: MONTH
+          - name: _FIVETRAN_SYNCED
