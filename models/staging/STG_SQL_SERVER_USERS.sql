@@ -11,7 +11,6 @@ renamed_casted_users AS (
         , ADDRESS_ID
         , PHONE_NUMBER
         , EMAIL
-        , TOTAL_ORDERS
         , CREATED_AT
         , UPDATED_AT
         , _fivetran_synced AS date_load

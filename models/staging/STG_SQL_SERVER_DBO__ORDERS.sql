@@ -10,7 +10,7 @@ renamed_casted_orders AS (
         , CREATED_AT
         , ORDER_COST
         , ORDER_TOTAL
-        , PROMO_ID
+        , MD5(PROMO_ID) AS ID_PROMO     --En la tabla PROMOS pusimos una nueva clave primaria con un hash, por eso la ponemos aquí también
         , ADDRESS_ID
         , TRACKING_ID
         , SHIPPING_SERVICE

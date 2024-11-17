@@ -20,7 +20,13 @@ sources:
       - name: ADDRESSES
         loaded_at_field: _FIVETRAN_SYNCED
         columns:
-          - name: ADDRESS_ID 
+          - name: ADDRESS_ID
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  field: <ADDRESS_ID>
+                  to: source('SQL_SERVER_DBO','USERS') 
           - name: ZIPCODE
           - name: COUNTRY
           - name: ADDRESS
@@ -49,11 +55,29 @@ sources:
           - name: SHIPPING_SERVICE
           - name: SHIPPING_COST
           - name: ADDRESS_ID
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  field: <ADDRESS_ID>
+                  to: source('SQL_SERVER_DBO','ADDRESSES') 
           - name: CREATED_AT
           - name: PROMO_ID
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  field: <PROMO_ID>
+                  to: source('SQL_SERVER_DBO','PROMOS')
           - name: ESTIMATED_DELIVERY_AT
           - name: ORDER_COST
           - name: USER_ID
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  field: <USER_ID>
+                  to: source('SQL_SERVER_DBO','USERS')
           - name: ORDER_TOTAL
           - name: DELIVERED_AT
           - name: TRACKING_ID
@@ -86,6 +110,13 @@ sources:
         loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: PROMO_ID
+            data_tests:
+              - not_null
+              - unique
+              - relationships:
+                  field: <PROMO_ID>
+                  to: source('SQL_SERVER_DBO','ORDERS')
+                  
           - name: DISCOUNT
           - name: STATUS
           - name: _FIVETRAN_DELETED
@@ -96,12 +127,26 @@ sources:
         loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: USER_ID
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  field: <USER_ID>
+                  to: source('SQL_SERVER_DBO','ORDERS')
           - name: UPDATED_AT
           - name: ADDRESS_ID
+            data_tests:
+              - unique
+              - not_null
+              - relationships:
+                  field: <ADDRESS_ID>
+                  to: source('SQL_SERVER_DBO','ADDRESSES') 
           - name: LAST_NAME
           - name: CREATED_AT
           - name: PHONE_NUMBER
           - name: TOTAL_ORDERS
+            data_tests:
+              - positive_values
           - name: FIRST_NAME
           - name: EMAIL
           - name: _FIVETRAN_DELETED
