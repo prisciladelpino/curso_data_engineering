@@ -13,7 +13,7 @@ renamed_casted_events AS (
         , PRODUCT_ID
         , CREATED_AT
         , ORDER_ID
-        , _FIVETRAN_SYNCED AS date_load
+        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
         , _FIVETRAN_DELETED AS is_deleted
     FROM src_addresses
     )

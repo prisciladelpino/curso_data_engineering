@@ -5,17 +5,17 @@ WITH src_users AS (
 
 renamed_casted_users AS (
     SELECT
-          USER_ID
+          {{ dbt_utils.generate_surrogate_key(['USER_ID']) }} AS USER_ID
         , FIRST_NAME
         , LAST_NAME
         , ADDRESS_ID
         , PHONE_NUMBER
         , EMAIL
-        , CREATED_AT
-        , UPDATED_AT
-        , _fivetran_synced AS date_load
+        , CONVERT_TIMEZONE('UTC', CREATED_AT) AS CREATED_AT_UTC
+        , CONVERT_TIMEZONE('UTC', UPDATED_AT) AS UPDATED_AT_UTC
+        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
         , _FIVETRAN_DELETED AS is_deleted
-    FROM src_addresses
+    FROM src_users
     )
 
 SELECT * FROM renamed_casted_users

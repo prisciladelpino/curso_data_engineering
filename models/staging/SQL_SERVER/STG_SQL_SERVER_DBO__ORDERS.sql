@@ -18,7 +18,7 @@ renamed_casted_orders AS (
         , ESTIMATED_DELIVERY_AT
         , STATUS AS DELIVERY_STATUS
         , DELIVERED_AT
-        , _FIVETRAN_SYNCED AS date_load
+        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
         , _FIVETRAN_DELETED AS is_deleted
     FROM src_addresses
     )

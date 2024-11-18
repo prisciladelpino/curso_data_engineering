@@ -16,7 +16,7 @@ renamed_casted_promos AS (
         , PROMO_ID AS PROMO_DESC              -- Cambiamos el antiguo promo_id por la descripción de la promoción 
         , DISCOUNT AS DISCOUNT_IN_DOLLARS     --Indicamos que el descuento es en dólares (no es porcentaje)
         , STATUS AS STATUS_DISCOUNT
-        , _FIVETRAN_SYNCED AS DATE_LOAD
+        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD
         , _FIVETRAN_DELETED AS IS_DELETED
     FROM src_promos
     ),
@@ -29,7 +29,7 @@ new_promo AS (
         , CAST('SIN_PROMO' AS VARCHAR(256)) AS PROMO_DESC
         , CAST(0 AS NUMBER(38,0)) AS DISCOUNT_IN_DOLLARS
         , CAST('ACTIVE' AS VARCHAR(256)) AS STATUS_DISCOUNT
-        , CURRENT_TIMESTAMP AS DATE_LOAD
+        , CURRENT_TIMESTAMP AS DATE_LOAD_UTC
         , CAST(NULL AS BOOLEAN) AS IS_DELETED
         )
 
