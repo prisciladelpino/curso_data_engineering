@@ -1,26 +1,33 @@
-WITH src_orders AS (
+WITH base_orders_costs AS (
     SELECT * 
-    FROM {{ source('SQL_SERVER_DBO', 'ORDERS') }}
+    FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS_COSTS') }}
+    ),
+
+base_orders_shipments AS (
+    SELECT * 
+    FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS_SHIPMENTS') }}
     ),
 
 renamed_casted_orders AS (
     SELECT
-          ORDER_ID
-        , USER_ID
-        , CREATED_AT
+          A.ORDER_ID
+        , A.USER_ID 
+        , A.CREATED_AT_UTC
         , ORDER_COST
         , ORDER_TOTAL
-        , MD5(PROMO_ID) AS ID_PROMO     --En la tabla PROMOS pusimos una nueva clave primaria con un hash, por eso la ponemos aquí también
+        , PROMO_ID     
         , ADDRESS_ID
         , TRACKING_ID
-        , SHIPPING_SERVICE
+        , SHIPPING_SERVICE_ID
         , SHIPPING_COST
-        , ESTIMATED_DELIVERY_AT
-        , STATUS AS DELIVERY_STATUS
-        , DELIVERED_AT
-        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
-        , _FIVETRAN_DELETED AS is_deleted
-    FROM src_addresses
+        , ESTIMATED_DELIVERY_AT_UTC
+        , DELIVERY_STATUS
+        , DELIVERED_AT_UTC
+        , A.DATE_LOAD_UTC
+        , A.is_deleted
+    FROM base_orders_costs A
+    JOIN base_orders_shipments B
+        ON A.ORDER_ID=B.ORDER_ID
     )
 
 SELECT * FROM renamed_casted_orders

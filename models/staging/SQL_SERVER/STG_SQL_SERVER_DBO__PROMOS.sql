@@ -12,7 +12,7 @@ WITH src_promos AS (
 
 renamed_casted_promos AS (
     SELECT
-          MD5(PROMO_ID) AS ID_PROMO           --Generamos un id único con un hash
+          {{ dbt_utils.generate_surrogate_key(['PROMO_ID']) }} AS PROMO_ID           --Generamos un id único con un hash
         , PROMO_ID AS PROMO_DESC              -- Cambiamos el antiguo promo_id por la descripción de la promoción 
         , DISCOUNT AS DISCOUNT_IN_DOLLARS     --Indicamos que el descuento es en dólares (no es porcentaje)
         , STATUS AS STATUS_DISCOUNT
