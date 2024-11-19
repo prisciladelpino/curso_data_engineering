@@ -5,7 +5,7 @@ WITH src_users AS (
 
 renamed_casted_users AS (
     SELECT
-          {{ dbt_utils.generate_surrogate_key(['USER_ID']) }} AS USER_ID
+          {{ dbt_utils.generate_surrogate_key(['USER_ID']) }} AS USER_ID --Generamos una clave subrogada utilizando el paquete utils
         , FIRST_NAME
         , LAST_NAME
         , ADDRESS_ID
