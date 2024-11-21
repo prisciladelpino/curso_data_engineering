@@ -5,11 +5,11 @@ WITH src_budget AS (
 
 renamed_casted AS (
     SELECT
-          _row
+        {{ dbt_utils.generate_surrogate_key(['product_id', 'month']) }} AS BUDGET_ID
         , product_id
         , quantity
         , month
-        , _fivetran_synced AS date_load
+        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD
     FROM src_budget
     )
 

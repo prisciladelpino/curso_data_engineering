@@ -14,8 +14,10 @@ renamed_casted_orders_costs AS (
         , ADDRESS_ID      
         , SHIPPING_COST
         , STATUS AS DELIVERY_STATUS
+        , {{ dbt_utils.generate_surrogate_key(['STATUS']) }} AS DELIVERY_STATUS_ID
         , TRACKING_ID
-        ,  {{ dbt_utils.generate_surrogate_key(['SHIPPING_SERVICE']) }} AS SHIPPING_SERVICE_ID
+        ,  {{ dbt_utils.generate_surrogate_key(['SHIPPING_SERVICE']) }} AS SHIPMENT_ID
+        , SHIPPING_SERVICE   --Necesito tener la descripción de shipping service aqui para luego poder sacarla
         , CONVERT_TIMEZONE('UTC', ESTIMATED_DELIVERY_AT) AS ESTIMATED_DELIVERY_AT_UTC
         , CONVERT_TIMEZONE('UTC', DELIVERED_AT) AS DELIVERED_AT_UTC
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC

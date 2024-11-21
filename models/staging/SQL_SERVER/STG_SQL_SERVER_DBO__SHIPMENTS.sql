@@ -1,17 +1,18 @@
 WITH src_shipping_service AS (
     SELECT * 
-    FROM {{ source('SQL_SERVER_DBO', 'ORDERS') }}
+    FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS') }}
     ),
 
 renamed_casted_shipping_service AS (
     SELECT DISTINCT
-          {{ dbt_utils.generate_surrogate_key(['SHIPPING_SERVICE']) }} AS SHIPPING_SERVICE_ID
+        SHIPMENT_ID
         , CASE WHEN 
             SHIPPING_SERVICE ='' THEN 'not_asigned' 
             ELSE SHIPPING_SERVICE 
         END AS SHIPPING_SERVICE_DESC
-        , CURRENT_TIMESTAMP AS DATE_LOAD_UTC
-        , _FIVETRAN_DELETED AS is_deleted
+        , SHIPPING_COST
+        , DATE_LOAD_UTC
+        , is_deleted
     FROM src_shipping_service
     )
 

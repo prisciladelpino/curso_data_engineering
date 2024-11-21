@@ -40,6 +40,10 @@ models:
     # Applies to all files under models/example/
     example:
       +materialized: table
+    marts:
+      +materialized: table
+      +database: "ALUMNO21_DEV_GOLD_DB"
+      +schema: "ALUMNO21"
 seeds:
   +database: "ALUMNO21_DEV_BRONZE_DB"
   +schema: "SEEDS"

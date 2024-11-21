@@ -7,15 +7,10 @@ WITH base_orders_costs AS (
 renamed_casted_orders AS (
     SELECT
           A.ORDER_ID
-        , A.USER_ID 
         , A.CREATED_AT_UTC
         , ORDER_COST
-        , ORDER_TOTAL
-        , PROMO_ID     
-        , ADDRESS_ID
-        , TRACKING_ID
-        , SHIPPING_SERVICE_ID
-        , SHIPPING_COST
+        , ORDER_TOTAL    
+        , SHIPPING_ID
         , ESTIMATED_DELIVERY_AT_UTC
         , DELIVERY_STATUS
         , DELIVERED_AT_UTC
@@ -23,6 +18,8 @@ renamed_casted_orders AS (
         , A.is_deleted
     FROM base_orders_costs 
     )
+
+
 
 SELECT * FROM renamed_casted_orders
 
