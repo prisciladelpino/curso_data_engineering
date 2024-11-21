@@ -3,10 +3,6 @@ WITH base_orders_costs AS (
     FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS_COSTS') }}
     ),
 
-base_orders_shipments AS (
-    SELECT * 
-    FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS_SHIPMENTS') }}
-    ),
 
 renamed_casted_orders AS (
     SELECT
@@ -25,9 +21,7 @@ renamed_casted_orders AS (
         , DELIVERED_AT_UTC
         , A.DATE_LOAD_UTC
         , A.is_deleted
-    FROM base_orders_costs A
-    JOIN base_orders_shipments B
-        ON A.ORDER_ID=B.ORDER_ID
+    FROM base_orders_costs 
     )
 
 SELECT * FROM renamed_casted_orders
