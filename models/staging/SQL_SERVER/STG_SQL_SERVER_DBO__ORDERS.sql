@@ -1,25 +1,22 @@
-WITH base_orders_costs AS (
+WITH src_orders AS (
     SELECT * 
     FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS') }}
     ),
 
-
-renamed_casted_orders AS (
+renamed_casted_orders_costs AS (
     SELECT
-          A.ORDER_ID
-        , A.CREATED_AT_UTC
+          ORDER_ID
+        , ORDER_CREATED_AT_UTC    
         , ORDER_COST
-        , ORDER_TOTAL    
-        , SHIPPING_ID
+        , ORDER_TOTAL  
+        , DELIVERY_STATUS_ID
         , ESTIMATED_DELIVERY_AT_UTC
-        , DELIVERY_STATUS
         , DELIVERED_AT_UTC
-        , A.DATE_LOAD_UTC
-        , A.is_deleted
-    FROM base_orders_costs 
+        , DATE_LOAD_UTC
+        , is_deleted   
+    
+    FROM src_orders
     )
 
-
-
-SELECT * FROM renamed_casted_orders
+SELECT * FROM renamed_casted_orders_costs
 
