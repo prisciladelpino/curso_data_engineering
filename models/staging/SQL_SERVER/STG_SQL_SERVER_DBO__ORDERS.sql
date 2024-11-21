@@ -1,6 +1,6 @@
 WITH base_orders_costs AS (
     SELECT * 
-    FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS_COSTS') }}
+    FROM {{ ref('BASE_SQL_SREVER_DBO__ORDERS') }}
     ),
 
 

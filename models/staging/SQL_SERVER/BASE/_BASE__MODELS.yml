@@ -1,7 +1,7 @@
 version: 2
 
 models:
-  - name: base_sql_srever_dbo__orders_costs
+  - name: base_sql_srever_dbo__orders
     description: ""
     columns:
       - name: order_id
@@ -12,7 +12,7 @@ models:
         data_type: varchar
         description: ""
 
-      - name: created_at_utc
+      - name: order_created_at_utc
         data_type: timestamp_tz
         description: ""
 
@@ -20,22 +20,11 @@ models:
         data_type: float
         description: ""
 
-      - name: shipping_cost
-        data_type: float
-        description: ""
-
       - name: order_total
         data_type: float
         description: ""
 
-  - name: base_sql_srever_dbo__orders_shipments
-    description: ""
-    columns:
-      - name: order_id
-        data_type: varchar
-        description: ""
-
-      - name: user_id
+      - name: promo_id
         data_type: varchar
         description: ""
 
@@ -43,8 +32,8 @@ models:
         data_type: varchar
         description: ""
 
-      - name: created_at_utc
-        data_type: timestamp_tz
+      - name: shipping_cost
+        data_type: float
         description: ""
 
       - name: delivery_status
