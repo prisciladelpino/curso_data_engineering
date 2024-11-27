@@ -4,8 +4,7 @@ sources:
 
   - name: GOOGLE_SHEETS # name of the source 
     schema: GOOGLE_SHEETS # this is the schema our raw data lives in
-    database: ALUMNO21_DEV_BRONZE_DB # this is the name of our database
-
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  # this is the name of our database
     quoting:
       database: false
       schema: false

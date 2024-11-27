@@ -10,7 +10,7 @@ renamed_casted_order_items AS (
         , QUANTITY
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
         , _FIVETRAN_DELETED AS is_deleted
-    FROM src_addresses
+    FROM src_order_items
     )
 
 SELECT * FROM renamed_casted_order_items
