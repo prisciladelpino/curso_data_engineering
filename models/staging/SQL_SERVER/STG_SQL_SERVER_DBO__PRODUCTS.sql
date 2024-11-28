@@ -9,10 +9,9 @@ renamed_casted_products AS (
         , NAME
         , PRICE AS PRICE_USD
         , INVENTORY
-        , ZIPCODE
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
         , _FIVETRAN_DELETED AS is_deleted
-    FROM src_addresses
+    FROM src_products
     )
 
 SELECT * FROM renamed_casted_products

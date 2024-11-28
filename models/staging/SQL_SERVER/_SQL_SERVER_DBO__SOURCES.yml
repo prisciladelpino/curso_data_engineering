@@ -4,7 +4,7 @@ sources:
 
   - name: SQL_SERVER_DBO # name of the source 
     schema: SQL_SERVER_DBO # this is the schema our raw data lives in
-    database: ALUMNO21_DEV_BRONZE_DB # this is the name of our database
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  # this is the name of our database
 
     quoting:
       database: false
@@ -82,6 +82,7 @@ sources:
           - name: DELIVERED_AT
           - name: TRACKING_ID
           - name: STATUS
+            description: '{{ doc("order_status") }}'
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 
