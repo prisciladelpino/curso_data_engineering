@@ -1,43 +1,26 @@
 
-{{
-  config(
-    materialized='table'
-  )
-}}
 
-WITH src_promos AS (
+WITH base_promos AS (
     SELECT * 
-    FROM {{ source('SQL_SERVER_DBO', 'PROMOS') }}
+    FROM {{ ref('BASE_SQL_SERVER_DBO__PROMOS') }}
     ),
 
-renamed_casted_promos AS (
-    SELECT
-          {{ dbt_utils.generate_surrogate_key(['PROMO_ID']) }} AS PROMO_ID           --Generamos un id único con un hash
-        , PROMO_ID AS PROMO_DESC              -- Cambiamos el antiguo promo_id por la descripción de la promoción 
-        , DISCOUNT AS DISCOUNT_IN_DOLLARS     --Indicamos que el descuento es en dólares (no es porcentaje)
-        , STATUS AS STATUS_DISCOUNT
-        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD
-        , _FIVETRAN_DELETED AS IS_DELETED
-    FROM src_promos
-    ),
-
+add_promo AS (
+    SELECT *
+    FROM base_promos
 
 --Añadimos una nueva fila para el caso de que NO exista descuento
-new_promo AS (
+UNION ALL
+
     SELECT
         MD5('SIN_PROMO') AS ID_PROMO
         , CAST('SIN_PROMO' AS VARCHAR(256)) AS PROMO_DESC
-        , CAST(0 AS NUMBER(38,0)) AS DISCOUNT_IN_DOLLARS
-        , CAST('ACTIVE' AS VARCHAR(256)) AS STATUS_DISCOUNT
+        , CAST(0 AS NUMBER(38,0)) AS DISCOUNT_IN_DOLLAR
+        , CAST('ACTIVE' AS VARCHAR(256)) AS PROMO_STATUS
         , CURRENT_TIMESTAMP AS DATE_LOAD_UTC
-        , CAST(NULL AS BOOLEAN) AS IS_DELETED
+        , CAST(False AS BOOLEAN) AS FIELD_DELETED
         )
 
--- Combinamos los datos existentes con la nueva fila
 SELECT *
-FROM renamed_casted_promos
+FROM add_promo
 
-UNION ALL
-
-SELECT *
-FROM new_promo

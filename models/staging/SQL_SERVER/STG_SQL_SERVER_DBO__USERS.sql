@@ -14,7 +14,10 @@ renamed_casted_users AS (
         , CONVERT_TIMEZONE('UTC', CREATED_AT) AS CREATED_AT_UTC
         , CONVERT_TIMEZONE('UTC', UPDATED_AT) AS UPDATED_AT_UTC
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
-        , _FIVETRAN_DELETED AS is_deleted
+        , CASE 
+            WHEN _FIVETRAN_DELETED IS NULL THEN FALSE 
+            ELSE TRUE 
+        END AS FIELD_DELETED  
     FROM src_users
     )
 

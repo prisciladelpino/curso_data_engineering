@@ -11,7 +11,10 @@ renamed_casted_addresses AS (
         , COUNTRY
         , ZIPCODE
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
-        , _FIVETRAN_DELETED AS is_deleted
+        , CASE 
+            WHEN _FIVETRAN_DELETED IS NULL THEN FALSE 
+            ELSE TRUE 
+        END AS FIELD_DELETED  
     FROM src_addresses
     )
 

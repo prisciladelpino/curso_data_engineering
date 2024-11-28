@@ -5,11 +5,15 @@ WITH src_order_items AS (
 
 renamed_casted_order_items AS (
     SELECT
-          PRODUCT_ID
+        {{ dbt_utils.generate_surrogate_key(['PRODUCT_ID', 'ORDER_ID']) }} AS ORDER_ITEM_ID        
+        , PRODUCT_ID
         , ORDER_ID
-        , QUANTITY
+        , QUANTITY::NUMBER(5,0)
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
-        , _FIVETRAN_DELETED AS is_deleted
+        , CASE 
+            WHEN _FIVETRAN_DELETED IS NULL THEN FALSE 
+            ELSE TRUE 
+        END AS FIELD_DELETED  
     FROM src_order_items
     )
 

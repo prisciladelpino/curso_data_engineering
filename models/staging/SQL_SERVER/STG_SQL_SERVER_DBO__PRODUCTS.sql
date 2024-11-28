@@ -6,11 +6,14 @@ WITH src_products AS (
 renamed_casted_products AS (
     SELECT
           PRODUCT_ID
-        , NAME
-        , PRICE AS PRICE_USD
-        , INVENTORY
+        , NAME AS PRODUCT_NAME
+        , PRICE::DECIMAL(10,2) AS PRICE_DOLLAR
+        , INVENTORY::NUMBER(5,0) AS STOCK
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS DATE_LOAD_UTC
-        , _FIVETRAN_DELETED AS is_deleted
+        , CASE 
+            WHEN _FIVETRAN_DELETED IS NULL THEN FALSE 
+            ELSE TRUE 
+        END AS FIELD_DELETED  
     FROM src_products
     )
 
