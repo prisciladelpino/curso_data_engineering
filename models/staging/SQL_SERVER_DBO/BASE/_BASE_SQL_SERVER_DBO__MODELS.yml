@@ -1,0 +1,30 @@
+version: 2
+
+models:
+  - name: base_sql_server_dbo__promos
+    description: ""
+    columns:
+      - name: promo_id
+        data_type: varchar
+        description: ""
+
+      - name: promo_desc
+        data_type: varchar
+        description: ""
+
+      - name: discount_in_dollar
+        data_type: number
+        description: ""
+
+      - name: promo_status
+        data_type: varchar
+        description: ""
+
+      - name: date_load_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: field_deleted
+        data_type: boolean
+        description: ""
+
