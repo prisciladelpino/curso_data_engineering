@@ -82,6 +82,7 @@ sources:
           - name: DELIVERED_AT
           - name: TRACKING_ID
           - name: STATUS
+            description: '{{ doc("order_status") }}'
           - name: _FIVETRAN_DELETED
           - name: _FIVETRAN_SYNCED
 

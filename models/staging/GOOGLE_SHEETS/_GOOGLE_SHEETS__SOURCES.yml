@@ -17,10 +17,16 @@ sources:
     tables:
 
       - name: BUDGET
+        description: Tabla que recoge el presupuesto mensual de cada producto***
         loaded_at_field: _FIVETRAN_SYNCED
         columns:
           - name: _ROW
+            description: Número de la fila, asignado por Google Sheets
           - name: PRODUCT_ID
+            description: Clave de identificación única por tipo de producto
           - name: QUANTITY
+            description: Cantidad del producto asignada a ese mes***
           - name: MONTH
+            description: Mes al que corresponde el presupuesto. Es formato fecha, último día de cada mes.***
           - name: _FIVETRAN_SYNCED
+            description: fecha de la última carga de datos desde Fivetran
