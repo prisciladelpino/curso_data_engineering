@@ -1,6 +1,7 @@
 version: 2
 
 models:
+  
   - name: stg_sql_server_dbo__addresses
     description: ""
     columns:

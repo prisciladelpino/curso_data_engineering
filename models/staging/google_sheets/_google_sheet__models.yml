@@ -12,7 +12,7 @@ models:
         data_type: varchar
         description: ""
 
-      - name: quantity::number(5,0)
+      - name: quantity::number(5,0)***
         data_type: number
         description: ""
 
