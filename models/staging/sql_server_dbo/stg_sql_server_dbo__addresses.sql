@@ -6,10 +6,10 @@ WITH src_addresses AS (
 renamed_casted_addresses AS (
     SELECT
           address_id
-        , address
-        , state
-        , country
-        , zipcode
+        , address::varchar(100)
+        , state::varchar(50)
+        , country::varchar(50)
+        , zipcode::int
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS date_load_utc
         , CASE 
             WHEN _fivetran_deleted IS NULL THEN FALSE 

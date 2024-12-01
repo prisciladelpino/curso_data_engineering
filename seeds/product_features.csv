@@ -1,0 +1,29 @@
+product_name,location,light_requirements,size,water_needs
+Pothos,Indoor,Low_light,Medium,Regular_watering
+Philodendron,Indoor,Low_light,Medium,Regular_watering
+Monstera,Indoor,Direct_light,Large,Regular_watering
+ZZ Plant,Indoor,Low_light,Medium,Occasional_watering
+Snake Plant,Indoor,Low_light,Medium,Occasional_watering
+Orchid,Indoor,Direct_light,Medium,Regular_watering
+Birds Nest Fern,Indoor,Moderate_light,Large,Regular_watering
+Calathea Makoyana,Indoor,Direct_light,Small,Regular_watering
+Peace Lily,Indoor,Low_light,Medium,Regular_watering
+Spider Plant,Indoor,Low_light,Small,Regular_watering
+Money Tree,Indoor,Moderate_light,Large,Regular_watering
+Devil Ivy,Indoor,Moderate_light,Medium,Regular_watering
+Alocasia Polly,Indoor,Moderate_light,Large,Regular_watering
+Pink Anthurium,Indoor,Moderate_light,Medium,Regular_watering
+Ficus,Indoor,Low_light,Medium,Regular_watering
+Pilea Peperomioides,Indoor,Moderate_light,Small,Regular_watering
+Rubber Plant,Indoor,Moderate_light,Large,Regular_watering
+Angel Wings Begonia,Indoor,Moderate_light,Small,Regular_watering
+Fiddle Leaf Fig,Indoor,Direct_light,Large,Regular_watering
+Bamboo,Outdoor,Moderate_light,Large,Regular_watering
+Bird of Paradise,Outdoor,Direct_light,Large,Regular_watering
+Majesty Palm,Outdoor,Direct_light,Large,Regular_watering
+Cactus,Outdoor,Direct_light,Medium,Occasional_watering
+Jade Plant,Outdoor,Direct_light,Small,Occasional_watering
+Dragon Tree,Outdoor,Moderate_light,Medium,Regular_watering
+Aloe Vera,Outdoor,Direct_light,Small,Occasional_watering
+Ponytail Palm,Outdoor,Direct_light,Medium,Occasional_watering
+Boston Fern,Outdoor,Moderate_light,Medium,Regular_watering

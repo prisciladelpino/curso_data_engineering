@@ -7,12 +7,12 @@ renamed_casted_events AS (
     SELECT
           event_id
         , session_id
-        , event_type
-        , page_url
+        , event_type::varchar(50)
+        , page_url::varchar(100)
         , {{ dbt_utils.generate_surrogate_key(['user_id']) }} AS user_id
         , product_id
         , CONVERT_TIMEZONE('UTC', created_at) AS created_at_utc
-        , ORDER_ID
+        , order_id
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS date_load_utc
         , CASE 
             WHEN _fivetran_deleted IS NULL THEN FALSE 

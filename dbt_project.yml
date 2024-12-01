@@ -57,7 +57,7 @@ models:
 
 seeds:
   +database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  
-  +schema: "SEEDS"
+  +schema: "seeds"
 
 snapshots:
   +transient: false
