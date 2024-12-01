@@ -7,7 +7,7 @@ WITH src_promos AS (
 
 renamed_casted_promos AS (
     SELECT
-        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id      -- Generamos un id único con un hash
+        {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id        -- Generamos un id único con un hash
         , LOWER(promo_id)::varchar(50) AS promo_desc                            -- Cambiamos el antiguo promo_id por la descripción de la promoción
         , discount::NUMBER(5,0) AS discount_in_usd                              -- Indicamos que el descuento es en dólares (no es porcentaje)
         , status::varchar(50) AS promo_status

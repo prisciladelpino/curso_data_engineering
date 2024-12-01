@@ -8,7 +8,7 @@ renamed_casted_order_items AS (
         {{ dbt_utils.generate_surrogate_key(['product_id', 'order_id']) }} AS order_item_id        
         , product_id
         , order_id
-        , quantity::int
+        , quantity::int AS product_quantity_sold
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS date_load_utc
         , CASE 
             WHEN _fivetran_deleted IS NULL THEN FALSE 

@@ -1,12 +1,11 @@
-WITH BASE_DATE AS(
-    SELECT * FROM (
+
+WITH BASE_DATE AS (
     {{ dbt_utils.date_spine(
         datepart="day",
-        start_date="cast('2024-01-01' as date)",
-        end_date="cast('2025-12-31' as date)"
+        start_date="cast('2000-01-01' as date)",
+        end_date="cast(current_date()+1 as date)"
     )
-    }}
-    )
+    }}  
 )
 
 SELECT 
