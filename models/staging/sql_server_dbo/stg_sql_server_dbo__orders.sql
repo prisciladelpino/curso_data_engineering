@@ -1,7 +1,18 @@
+{{
+  config(
+    materialized='incremental'
+    , unique_key='order_id'
+    , on_schema_change='fail'
+  )
+}}
 
 WITH src_orders AS (
     SELECT * 
     FROM {{ source('sql_server_dbo', 'orders') }}
+
+{% if is_incremental() %}
+	  where date_load_utc > (select max(date_load_utc) from {{ this }} )
+{% endif %}
     ),
 
 
