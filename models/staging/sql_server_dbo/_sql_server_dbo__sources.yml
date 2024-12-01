@@ -152,5 +152,8 @@ sources:
 
 
 
-
+      - name: product_unit_costs
+        columns:
+         - name: product_name
+         - name: unit_cost
 

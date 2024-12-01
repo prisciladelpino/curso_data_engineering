@@ -3,13 +3,13 @@ WITH src_products AS (
     FROM {{ source('sql_server_dbo', 'products') }}
     ),
 
-renamed_casted_products AS (
+base_renamed_casted_products AS (
     
     SELECT
         
           product_id
-        , name AS product_name
-        , price::DECIMAL(10,2) AS price_dollar
+        , name::varchar(50) AS product_name
+        , price::DECIMAL(10,2) AS price_usd
         , inventory::NUMBER(5,0) AS stock
         , convert_timezone('UTC', _fivetran_synced) AS date_load_utc
         
@@ -21,5 +21,5 @@ renamed_casted_products AS (
     FROM src_products
     )
 
-SELECT * FROM renamed_casted_products
+SELECT * FROM base_renamed_casted_products
 

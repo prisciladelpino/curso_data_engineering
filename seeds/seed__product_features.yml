@@ -9,3 +9,9 @@ seeds:
           - name: light_requirements
           - name: size
           - name: water_needs
+
+      - name: product_unit_cost
+        description: ""
+        columns:
+          - name: product_name
+          - name: unit_cost
