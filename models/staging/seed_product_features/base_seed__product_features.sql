@@ -12,10 +12,11 @@ WITH base_product_features AS (
 renamed_casted_product_features AS(
     SELECT
         product_name
-        , location::varchar(50)
-        , light_requirements::varchar(50)
-        , size::varchar(50)
-        , water_needs::varchar(50)
+        , location
+        , light_requirements
+        , size
+        , water_needs
+    FROM base_product_features
 )
 
 select * from renamed_casted_product_features
