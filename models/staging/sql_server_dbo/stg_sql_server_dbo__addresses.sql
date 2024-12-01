@@ -1,7 +1,20 @@
+{{
+  config(
+      materialized='incremental'
+    , unique_key='address_id'
+    , on_schema_change='fail'
+  )
+}}
+
 WITH src_addresses AS (
     SELECT * 
     FROM {{ source('sql_server_dbo', 'addresses') }}
+
+    {% if is_incremental() %}
+        WHERE _fivetran_synced > (SELECT max(batched_at_utc) FROM {{ this }})
+    {% endif %}
     ),
+
 
 renamed_casted_addresses AS (
     SELECT

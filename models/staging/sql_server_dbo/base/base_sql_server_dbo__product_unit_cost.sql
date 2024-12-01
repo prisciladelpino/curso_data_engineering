@@ -1,12 +1,8 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
 
 WITH base_product_features AS (
     SELECT *
-    FROM {{ source('sql_server_dbo', 'product_unit_costs') }}
+    FROM {{ ref('src_product_unit_costs_snap') }}
+    WHERE dbt_valid_to is null
 ),
 
 renamed_casted_unit_cost AS(

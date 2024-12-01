@@ -1,6 +1,8 @@
+
 WITH src_users AS (
     SELECT * 
-    FROM {{ source('sql_server_dbo', 'users') }}
+    FROM {{ ref('src_users_snap') }}
+    WHERE dbt_valid_to is null
     ),
 
 renamed_casted_users AS (

@@ -1,6 +1,7 @@
 WITH src_promos AS (
     SELECT * 
-    FROM {{ source('sql_server_dbo', 'promos') }}
+    from {{ ref('src_promos_snap') }}
+    where dbt_valid_to is null 
     ),
 
 

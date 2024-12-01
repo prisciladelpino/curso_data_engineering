@@ -25,7 +25,7 @@ renamed_casted_orders_costs AS (
         , CONVERT_TIMEZONE('UTC',created_at) AS order_created_at_utc    
         , order_cost::decimal(10,2) AS order_cost_usd
         , order_total::decimal(10,2) AS order_total_cost_usd
-        , {{ dbt_utils.generate_surrogate_key(['PROMO_ID']) }} AS promo_id  --En la tabla PROMOS pusimos una nueva clave primaria  con un hash, por eso la ponemos aquí también   
+        , {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id  --En la tabla PROMOS pusimos una nueva clave primaria  con un hash, por eso la ponemos aquí también   
         , address_id      
         , shipping_cost::decimal(10,2) AS shipping_cost_usd
         , status AS delivery_status
