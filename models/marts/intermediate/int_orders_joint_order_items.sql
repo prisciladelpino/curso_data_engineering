@@ -20,6 +20,9 @@ with stg_order_items as (
 stg_orders as (
     select * from {{ ref('stg_sql_server_dbo__orders') }}
     
+{% if is_incremental() %}
+	  where _fivetran_synced > (select max(date_load_utc) from {{ this }} )
+{% endif %}    
 ),
 
 stg_products as (
