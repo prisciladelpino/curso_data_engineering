@@ -2,14 +2,15 @@
 WITH BASE_DATE AS (
     {{ dbt_utils.date_spine(
         datepart="day",
-        start_date="cast('2000-01-01' as date)",
+        start_date="cast('2020-01-01' as date)",
         end_date="cast(current_date()+1 as date)"
     )
     }}  
 )
 
-SELECT 
-    DATE_DAY as date_id                  -- Id de la fecha ¿sirve en formato timestamp?
+SELECT
+    {{ dbt_utils.generate_surrogate_key(['DATE_DAY']) }} AS date_id 
+    ,DATE_DAY                 -- Id de la fecha ¿sirve en formato timestamp?
     , year (DATE_DAY) as year            -- Año
     , month(DATE_DAY) as month_number    -- Mes (número)
     , to_char(DATE_DAY, 'Month') as month_name  -- Mes (nombre)
