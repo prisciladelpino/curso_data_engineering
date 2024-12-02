@@ -50,13 +50,16 @@ orders_and_order_items as (
         , a.date_load_utc as order_items_load_utc
         , b.date_load_utc as orders_load_utc
 
+
 --Ahora vamos a añadir a la tabla anterior algunas metricas interesantes para facilitar el análisis de ventas
 --Para conocer los beneficios reales de mi empresa nesetito tener en algún sitio los ingresos por producto aplicando el descuento que le corresponda a cada producto
+   
         , (product_price_usd / (order_total_cost_usd - shipping_cost_usd) * 100)::decimal(7,2) as percentage_of_order_cost
         , CASE
             WHEN discount_in_usd = 0 THEN 0
             ELSE ((product_price_usd / (order_total_cost_usd - shipping_cost_usd)) * discount_in_usd)::decimal(7,2) 
          END AS discount_per_item_usd
+
 
 --Hacemos todos los join necesarios
     from stg_order_items as a
@@ -68,8 +71,6 @@ orders_and_order_items as (
         on b.promo_id = d.promo_id
     order by b.order_created_at_utc, a.order_id
 )
-
-
 
 
 Select * from orders_and_order_items
