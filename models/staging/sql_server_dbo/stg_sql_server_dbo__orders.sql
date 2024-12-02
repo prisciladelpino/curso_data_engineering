@@ -1,18 +1,10 @@
-{{
-  config(
-    materialized='incremental'
-    , unique_key='order_id'
-    , on_schema_change='fail'
-  )
-}}
+
 
 WITH src_orders AS (
     SELECT * 
     FROM {{ source('sql_server_dbo', 'orders') }}
 
-{% if is_incremental() %}
-	  where date_load_utc > (select max(date_load_utc) from {{ this }} )
-{% endif %}
+
     ),
 
 
@@ -20,12 +12,16 @@ renamed_casted_orders_costs AS (
     
     SELECT
         
-          order_id
+         order_id
         , {{ dbt_utils.generate_surrogate_key(['user_id']) }} AS user_id  --Generamos una clave subrogada utilizando el paquete utilsUSER_ID 
         , CONVERT_TIMEZONE('UTC',created_at) AS order_created_at_utc    
         , order_cost::decimal(10,2) AS order_cost_usd
         , order_total::decimal(10,2) AS order_total_cost_usd
-        , {{ dbt_utils.generate_surrogate_key(['promo_id']) }} AS promo_id  --En la tabla PROMOS pusimos una nueva clave primaria  con un hash, por eso la ponemos aquí también   
+        , CASE 
+            WHEN promo_id = ''                                            --En la tabla PROMOS pusimos una nueva clave primaria  con un hash, por eso la ponemos aquí también 
+                THEN md5('no_promo')
+            ELSE {{ dbt_utils.generate_surrogate_key(['promo_id']) }}
+          END AS promo_id                                                 
         , address_id      
         , shipping_cost::decimal(10,2) AS shipping_cost_usd
         , status AS delivery_status

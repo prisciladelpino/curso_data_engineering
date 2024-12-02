@@ -1,3 +1,4 @@
+
 {{
   config(
     materialized='incremental'
@@ -10,7 +11,7 @@ WITH src_order_items AS (
     FROM {{ source('sql_server_dbo', 'order_items') }}
 
 {% if is_incremental() %}
-	  where date_load_utc > (select max(date_load_utc) from {{ this }} )
+	  where _fivetran_synced > (select max(date_load_utc) from {{ this }} )
 {% endif %}
 
     ),

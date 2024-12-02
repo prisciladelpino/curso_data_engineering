@@ -20,7 +20,7 @@ stg_products_completed AS(
         , c.unit_cost
         , a.price_usd
         , a.stock
-        , b.location
+        , b.placement
         , b.light_requirements
         , b.size
         , b.water_needs     

@@ -1,6 +1,6 @@
 WITH src_products AS (
     SELECT * 
-    FROM {{ source('sql_server_dbo', 'products') }}
+    FROM {{ ref('src_products_snap') }}
     ),
 
 base_renamed_casted_products AS (
