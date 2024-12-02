@@ -9,7 +9,7 @@ renamed_casted AS (
         , product_id::varchar(100) AS product_id
         , quantity::int AS target_quantity
         , CAST (month AS date) as budget_month
-        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS date_load
+        , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS date_load_utc
     FROM src_budget
     )
 
