@@ -54,14 +54,36 @@ logistics_metrics as (
 select
     state_id
     , ROUND(AVG(days_between), 2) as avergare_days_between
-    , ROUND(AVG(stimated_days_between), 2) as avergare_days_between
+    , ROUND(AVG(stimated_days_between), 2) as avergare_stimated_days
     , ROUND(AVG(stimated_delivery_accuracy),2) as average_stimated_delivery_accuracy
     , MODE(shipping_service) as main_shipping_service
 from agg_logistics
 group by state_id
 )
 
-select * 
+select 
+        order_id
+        , user_id
+        , state
+        , al.state_id 
+        , address_id 
+        , order_created_at_utc
+        , estimated_delivery_at_utc
+        , stimated_days_between
+        , avergare_stimated_days
+        , delivered_at_utc   
+        , days_between
+        , avergare_days_between        
+        , stimated_delivery_accuracy
+        , average_stimated_delivery_accuracy
+        , main_shipping_service
+        , shipping_cost_usd                                  
+        , delivery_status
+        , tracking_id
+        , shipping_service   
+        , date_id
+        , date_load_utc
+        , field_deleted  
 from logistics_metrics as lm
 full outer join agg_logistics as al
     on al.state_id = lm.state_id
