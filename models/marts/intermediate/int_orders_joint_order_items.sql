@@ -54,7 +54,7 @@ orders_and_order_items as (
         , b.date_load_utc as orders_load_utc
 
 
---Ahora vamos a añadir a la tabla anterior algunas metricas interesantes para facilitar el análisis de ventas
+--Ahora vamos a añadir algunas metricas interesantes para facilitar el análisis de ventas
 --Para conocer los beneficios reales de mi empresa nesetito tener en algún sitio los ingresos por producto aplicando el descuento que le corresponda a cada producto
    
         , (product_price_usd / (order_total_cost_usd - shipping_cost_usd) * 100)::decimal(7,2) as percentage_of_order_cost
