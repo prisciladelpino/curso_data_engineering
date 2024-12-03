@@ -24,10 +24,11 @@ sources:
             data_tests:
               - unique
               - not_null
-              - relationships:
-                  field: <address_id>
-                  to: source('sql_server_dbo','users') 
           - name: zipcode
+            data_tests:
+              - valid_zipcode:
+                  column_name: zipcode
+                  severity: warn 
           - name: country
           - name: address
           - name: state
@@ -37,11 +38,30 @@ sources:
       - name: events
         loaded_at_field: _fivetran_synced
         columns:
-          - name: event_id 
+          - name: event_id
+            data_tests:
+              - not_null
+              - unique             
           - name: page_url
           - name: event_type
+            data_tests:
+              - accepted_values:
+                  values:
+                    - checkout
+                    - package_shipped
+                    - add_to_cart
+                    - page_view
           - name: user_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: user_id
+                  to: source('sql_server_dbo','users')          
           - name: product_id
+            data_tests:
+              - relationships:
+                  field: product_id
+                  to: source('sql_server_dbo','product_id')          
           - name: session_id
           - name: created_at
           - name: order_id
@@ -52,37 +72,43 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: order_id
+            data_tests:
+              - not_null
+              - unique          
           - name: shipping_service
           - name: shipping_cost
           - name: address_id
             data_tests:
-              - unique
               - not_null
               - relationships:
-                  field: <address_id>
-                  to: source('sql_server_dbo','addresses') 
+                  field: address_id
+                  to: source('sql_server_dbo','addresses')           
           - name: created_at
           - name: promo_id
             data_tests:
-              - unique
-              - not_null
               - relationships:
-                  field: <promo_id>
+                  field: promo_id
                   to: source('sql_server_dbo','promos')
+                  severity: warn                     
           - name: estimated_delivery_at
           - name: order_cost
           - name: user_id
             data_tests:
-              - unique
               - not_null
               - relationships:
-                  field: <user_id>
+                  field: user_id
                   to: source('sql_server_dbo','users')
           - name: order_total
           - name: delivered_at
           - name: tracking_id
           - name: status
             description: '{{ doc("order_status") }}'
+            data_tests:
+              - accepted_values:
+                  values:
+                    - preparing
+                    - shipped
+                    - delivered             
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
@@ -90,8 +116,22 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: order_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: order_id 
+                  to: source('sql_server_dbo','orders')          
           - name: product_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: product_id 
+                  to: source('sql_server_dbo','products')   
           - name: quantity
+            data_tests:
+              - non_negative_values:
+                  column_name: quantity
+                  severity: warn              
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
@@ -99,7 +139,13 @@ sources:
         loaded_at_field: _fivetran_synced
         columns:
           - name: product_id
+            data_tests:
+              - not_null
+              - unique            
           - name: price
+            data_tests:
+              - positive_values:
+                  column_name: unit_cost       
           - name: name
           - name: inventory
           - name: _fivetran_deleted
@@ -111,13 +157,18 @@ sources:
           - name: promo_id
             data_tests:
               - not_null
-              - unique
-              - relationships:
-                  field: <promo_id>
-                  to: source('sql_server_dbo','orders')
-                  
+              - unique               
           - name: discount
+            data_tests:
+              - non_negative_values:
+                  column_name: discount
+                  severity: warn 
           - name: status
+            data_tests:
+              - accepted_values:
+                  values:
+                    - active
+                    - inactive
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
@@ -128,25 +179,28 @@ sources:
             data_tests:
               - unique
               - not_null
-              - relationships:
-                  field: <user_id>
-                  to: source('sql_server_dbo','orders')
           - name: updated_at
           - name: address_id
             data_tests:
-              - unique
               - not_null
-              - relationships:
-                  field: <address_id>
-                  to: source('sql_server_dbo','addresses') 
           - name: last_name
           - name: created_at
           - name: phone_number
+            data_tests:
+              - valid_phone_number:
+                  column_name: phone_number
+                  severity: warn
           - name: total_orders
             data_tests:
-              - positive_values
+              - non_negative_values:
+                  column_name: total_orders
+                  severity: warn
           - name: first_name
           - name: email
+            data_tests: 
+              - valid_email:
+                  column_name: email
+                  severity: warn
           - name: _fivetran_deleted
           - name: _fivetran_synced
 
@@ -156,4 +210,8 @@ sources:
         columns:
          - name: product_name
          - name: unit_cost
+           data_tests:
+              - positive_values:
+                  column_name: unit_cost
+                  severity: warn         
 
