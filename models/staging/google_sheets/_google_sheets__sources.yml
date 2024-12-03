@@ -24,8 +24,16 @@ sources:
             description: número de la fila, asignado por google sheets
           - name: product_id
             description: clave de identificación única por tipo de producto
+            data_tests:
+              - not_null
+              - relationships:
+                  field: product_id
+                  to: source('sql_server_dbo','products')             
           - name: quantity
             description: cantidad del producto asignada a ese mes***
+            data_tests:
+              - non_negative_values:
+                  column_name: quantity             
           - name: month
             description: mes al que corresponde el presupuesto. es formato fecha, último día de cada mes.***
           - name: _fivetran_synced
