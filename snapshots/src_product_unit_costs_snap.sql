@@ -7,7 +7,7 @@
       target_schema='snapshots',
       unique_key='product_name',
       strategy='check',
-      check_cols=['product_name','product_unit_costs'],
+      check_cols=['product_name','unit_cost'],
       invalidate_hard_deletes=True,
     )
 }}

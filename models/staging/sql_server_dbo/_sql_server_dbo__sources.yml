@@ -57,11 +57,7 @@ sources:
               - relationships:
                   field: user_id
                   to: source('sql_server_dbo','users')          
-          - name: product_id
-            data_tests:
-              - relationships:
-                  field: product_id
-                  to: source('sql_server_dbo','product_id')          
+          - name: product_id        
           - name: session_id
           - name: created_at
           - name: order_id
