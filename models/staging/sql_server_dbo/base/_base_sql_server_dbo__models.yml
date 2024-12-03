@@ -3,43 +3,44 @@ version: 2
 models:
 
   - name: base_sql_server_dbo__product_unit_cost
-    description: ""
+    description: "Base model for product unit costs."
+    
     columns:
       - name: product_name
         data_type: varchar
-        description: ""
-
+        description: "Name of the product."
+      
       - name: unit_cost
         data_type: number
-        description: ""
-
+        description: "Cost of a single unit of the product in USD."
 
 
 
 
   - name: base_sql_server_dbo__products
-    description: ""
+    description: "Base model for product details, including price, stock, and metadata."
     columns:
+     
       - name: product_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each product."
+     
       - name: product_name
         data_type: varchar
-        description: ""
-
+        description: "Name of the product."
+      
       - name: price_usd
         data_type: number
-        description: ""
-
+        description: "Price of the product in USD."
+     
       - name: stock
         data_type: number
-        description: ""
-
+        description: "Current inventory level of the product."
+     
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+     
       - name: field_deleted
         data_type: boolean
-        description: ""
+        description: "Indicates whether the record has been marked as deleted."

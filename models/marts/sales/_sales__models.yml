@@ -2,75 +2,78 @@ version: 2
 
 models:
   - name: agg__budget_sales
-    description: ""
+    description: "Aggregated model for analyzing budget and sales performance by product and month."
+    
     columns:
+      
       - name: year
         data_type: number
-        description: ""
-
+        description: "Year corresponding to the sales and budget data."
+     
       - name: month
         data_type: number
-        description: ""
-
+        description: "Month as a number (1 for January, 12 for December) corresponding to the sales and budget data."
+     
       - name: product_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for the product."
+     
       - name: product_name
         data_type: varchar
-        description: ""
-
+        description: "Name of the product."
+    
       - name: target_quantity
         data_type: number
-        description: ""
-
+        description: "Target quantity of the product to be sold in the specified month."
+     
       - name: monthly_quantity_sold
         data_type: number
-        description: ""
-
+        description: "Total quantity of the product sold during the specified month."
+    
       - name: target_acomplish
         data_type: number
-        description: ""
-
+        description: "The ratio of actual sales to the target quantity, expressed as a percentage."
+     
       - name: target_sells_diff_percentage
         data_type: number
-        description: ""
-
+        description: "Percentage difference between the target quantity and the actual quantity sold."
+     
       - name: monthly_incomes
         data_type: number
-        description: ""
-
+        description: "Total revenue generated from product sales during the specified month."
+    
       - name: monthly_expenses
         data_type: number
-        description: ""
-
+        description: "Total expenses incurred for the product during the specified month."
+    
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
 
 
 
 
   - name: fct_budget
-    description: ""
+    description: "Fact table for storing budget information, including monthly targets for products."
+    
     columns:
+     
       - name: budget_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each budget entry."
+      
       - name: product_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for the product associated with the budget."
+     
       - name: target_quantity
         data_type: number
-        description: ""
-
+        description: "Target quantity of the product to be sold for the specified budget period."
+     
       - name: budget_month
         data_type: date
-        description: ""
-
+        description: "Date representing the month for which the budget is defined, typically the last day of the month."
+     
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Timestamp indicating when the budget data was last loaded into the system."

@@ -2,24 +2,26 @@ version: 2
 
 models:
   - name: stg_google_sheets__budget
-    description: ""
+    description: "Staging model for budget sales, containing monthly allocation information for products."
+    
     columns:
+     
       - name: budget_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each budget entry."
+     
       - name: product_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier key for each product type."
+     
       - name: target_quantity
         data_type: number
-        description: ""
-
+        description: "Quantity of the product targeted for the specified month."
+    
       - name: budget_month
         data_type: date
-        description: ""
-
+        description: "Month to which the budget corresponds, represented as the last day of the month."
+     
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
+        description: "Timestamp indicating when the data was last loaded into the system."

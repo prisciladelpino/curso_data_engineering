@@ -1,312 +1,316 @@
 version: 2
 
 models:
+
   - name: stg_sql_server_dbo__addresses
-    description: ""
+    description: "Staging model for address data, containing location and metadata."
+    
     columns:
+      
       - name: address_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each address."
+      
       - name: address
         data_type: varchar
-        description: ""
-
+        description: "Full address string, including street and number."
+      
       - name: state
         data_type: varchar
-        description: ""
-
+        description: "State or province of the address."
+      
       - name: country
         data_type: varchar
-        description: ""
-
+        description: "Country where the address is located."
+      
       - name: zipcode
         data_type: number
-        description: ""
-
+        description: "Postal code of the address, expected to be 5 digits."
+      
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+      
       - name: field_deleted
         data_type: boolean
-        description: ""
-
+        description: "Indicates whether the record has been marked as deleted."
 
 
 
 
   - name: stg_sql_server_dbo__events
-    description: ""
+    description: "Staging model for event data, tracking user actions and activities."
+    
     columns:
+      
       - name: event_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each event."
+      
       - name: session_id
         data_type: varchar
-        description: ""
-
+        description: "Session identifier to track user actions within a session."
+     
       - name: event_type
         data_type: varchar
-        description: ""
-
+        description: "Type of the event, such as checkout, page view, or add to cart."
+      
       - name: page_url
         data_type: varchar
-        description: ""
-
+        description: "URL of the page where the event occurred."
+    
       - name: user_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the user associated with the event."
+     
       - name: product_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the product involved in the event, if applicable."
+    
       - name: created_at_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the event occurred."
+     
       - name: order_id
         data_type: varchar
-        description: ""
-
+        description: "Order identifier associated with the event, if applicable."
+     
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+    
       - name: field_deleted
         data_type: boolean
-        description: ""
-
+        description: "Indicates whether the record has been marked as deleted."
 
 
 
 
   - name: stg_sql_server_dbo__order_items
-    description: ""
+    description: "Staging model for order item details, including product information and quantities."
+    
     columns:
+     
       - name: order_item_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each order item."
+     
       - name: product_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier of the product in the order."
+    
       - name: order_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the order to which the item belongs."
+     
       - name: product_quantity_sold
         data_type: number
-        description: ""
-
+        description: "Quantity of the product sold in the order."
+   
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+     
       - name: field_deleted
         data_type: boolean
-        description: ""
-
+        description: "Indicates whether the record has been marked as deleted."
 
 
 
 
   - name: stg_sql_server_dbo__orders
-    description: ""
+    description: "Staging model for order data, containing details about customer orders."
+    
     columns:
+     
       - name: order_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each order."
+     
       - name: user_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier of the user who placed the order."
+     
       - name: order_created_at_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the order was created."
+     
       - name: order_cost_usd
         data_type: number
-        description: ""
-
+        description: "Cost of the order in USD, excluding taxes and shipping."
+     
       - name: order_total_cost_usd
         data_type: number
-        description: ""
-
+        description: "Total cost of the order in USD, including taxes and shipping."
+    
       - name: promo_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the promotion applied to the order, if any."
+    
       - name: address_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier of the address where the order is delivered."
+    
       - name: shipping_cost_usd
         data_type: number
-        description: ""
-
+        description: "Cost of shipping for the order in USD."
+     
       - name: delivery_status
         data_type: varchar
-        description: ""
-
+        description: "Current delivery status of the order."
+     
       - name: tracking_id
         data_type: varchar
-        description: ""
-
+        description: "Tracking identifier provided by the shipping service."
+     
       - name: shipping_service
         data_type: varchar
-        description: ""
-
+        description: "Shipping service used for the order delivery."
+    
       - name: estimated_delivery_at_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Estimated delivery date and time for the order."
+    
       - name: delivered_at_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Actual delivery date and time for the order."
+     
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+     
       - name: field_deleted
         data_type: boolean
-        description: ""
-
+        description: "Indicates whether the record has been marked as deleted."
 
 
 
 
   - name: stg_sql_server_dbo__promos
-    description: ""
+    description: "Staging model for promotions, including discount details and statuses."
+   
     columns:
+     
       - name: promo_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each promotion."
+     
       - name: promo_desc
         data_type: varchar
-        description: ""
-
+        description: "Description of the promotion."
+     
       - name: discount_in_usd
         data_type: number
-        description: ""
-
+        description: "Discount amount offered by the promotion in USD."
+     
       - name: promo_status
         data_type: varchar
-        description: ""
-
+        description: "Current status of the promotion, such as active or inactive."
+    
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+    
       - name: field_deleted
         data_type: boolean
-        description: ""
-
+        description: "Indicates whether the record has been marked as deleted."
 
 
 
 
   - name: stg_sql_server_dbo__users
-    description: ""
+    description: "Staging model for user data, containing personal details and activity information."
+   
     columns:
+     
       - name: user_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each user."
+     
       - name: first_name
         data_type: varchar
-        description: ""
-
+        description: "First name of the user."
+     
       - name: last_name
         data_type: varchar
-        description: ""
-
+        description: "Last name of the user."
+    
       - name: address_id
         data_type: varchar
-        description: ""
-
+        description: "Identifier for the user's address."
+     
       - name: phone_number
         data_type: number
-        description: ""
-
+        description: "Phone number of the user."
+     
       - name: email
         data_type: varchar
-        description: ""
-
+        description: "Email address of the user."
+     
       - name: created_at_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp when the user record was created."
+     
       - name: updated_at_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp of the last update to the user record."
+     
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+    
       - name: field_deleted
         data_type: boolean
-        description: ""
-
+        description: "Indicates whether the record has been marked as deleted."
 
 
 
 
   - name: stg_sql_server_dbo_products
-    description: ""
+    description: "Staging model for product data, including pricing, inventory, and characteristics."
+    
     columns:
+     
       - name: product_id
         data_type: varchar
-        description: ""
-
+        description: "Unique identifier for each product."
+    
       - name: product_name
         data_type: varchar
-        description: ""
-
+        description: "Name of the product."
+     
       - name: unit_cost
         data_type: number
-        description: ""
-
+        description: "Cost of a single unit of the product in USD."
+     
       - name: price_usd
         data_type: number
-        description: ""
-
+        description: "Price of the product in USD."
+    
       - name: stock
         data_type: number
-        description: ""
-
+        description: "Current inventory level of the product."
+     
       - name: placement
         data_type: varchar
-        description: ""
-
+        description: "Placement or category of the product within the inventory."
+     
       - name: light_requirements
         data_type: varchar
-        description: ""
-
+        description: "Light requirements for the product, such as indoor or outdoor."
+     
       - name: size
         data_type: varchar
-        description: ""
-
+        description: "Size or dimensions of the product."
+    
       - name: water_needs
         data_type: varchar
-        description: ""
-
+        description: "Water requirements for the product."
+     
       - name: date_load_utc
         data_type: timestamp_tz
-        description: ""
-
+        description: "Timestamp indicating when the data was last loaded into the system."
+     
       - name: field_deleted
         data_type: boolean
-        description: ""
-
-
-
-
-
+        description: "Indicates whether the record has been marked as deleted."
