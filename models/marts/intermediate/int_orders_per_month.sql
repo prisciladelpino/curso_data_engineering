@@ -1,6 +1,5 @@
+
 --Este modelo intermedio se emplea para agregar las métricas de negocio a nivel mensual para facilitar su comparación con budget
-
-
 
 with stg_order_items as (
     select * from {{ ref('stg_sql_server_dbo__order_items') }}
@@ -47,5 +46,6 @@ grouped_by_month as(
 )
 
 select * from grouped_by_month
+
 
 
