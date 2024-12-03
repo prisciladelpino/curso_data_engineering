@@ -1,0 +1,43 @@
+version: 2
+
+models:
+  - name: base_sql_server_dbo__products
+    description: ""
+    columns:
+      - name: product_id
+        data_type: varchar
+        description: ""
+
+      - name: product_name
+        data_type: varchar
+        description: ""
+
+      - name: price_usd
+        data_type: number
+        description: ""
+
+      - name: stock
+        data_type: number
+        description: ""
+
+      - name: date_load_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: field_deleted
+        data_type: boolean
+        description: ""
+
+
+
+
+  - name: base_sql_server_dbo__product_unit_cost
+    description: ""
+    columns:
+      - name: product_name
+        data_type: varchar
+        description: ""
+
+      - name: unit_cost
+        data_type: number
+        description: ""

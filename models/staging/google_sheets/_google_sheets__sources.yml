@@ -1,0 +1,41 @@
+version: 2
+
+sources:
+
+  - name: google_sheets # name of the source 
+    schema: google_sheets # this is the schema our raw data lives in
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  # this is the name of our database
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 15, period: day}
+      error_after: {count: 25, period: day}
+
+    tables:
+
+      - name: budget
+        description: tabla que recoge el presupuesto mensual de cada producto***
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: _row
+            description: número de la fila, asignado por google sheets
+          - name: product_id
+            description: clave de identificación única por tipo de producto
+            data_tests:
+              - not_null
+              - relationships:
+                  field: product_id
+                  to: source('sql_server_dbo','products')             
+          - name: quantity
+            description: cantidad del producto asignada a ese mes***
+            data_tests:
+              - non_negative_values:
+                  column_name: quantity             
+          - name: month
+            description: mes al que corresponde el presupuesto. es formato fecha, último día de cada mes.***
+          - name: _fivetran_synced
+            description: fecha de la última carga de datos desde fivetran
+

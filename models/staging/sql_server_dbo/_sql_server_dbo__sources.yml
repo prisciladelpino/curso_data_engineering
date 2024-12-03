@@ -1,0 +1,217 @@
+version: 2
+
+sources:
+
+  - name: sql_server_dbo # name of the source 
+    schema: sql_server_dbo # this is the schema our raw data lives in
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  # this is the name of our database
+
+    quoting:
+      database: false
+      schema: false
+      identifier: false
+
+    freshness:
+      warn_after: {count: 15, period: day}
+      error_after: {count: 25, period: day}
+
+    tables:
+
+      - name: addresses
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: address_id
+            data_tests:
+              - unique
+              - not_null
+          - name: zipcode
+            data_tests:
+              - valid_zipcode:
+                  column_name: zipcode
+                  severity: warn 
+          - name: country
+          - name: address
+          - name: state
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: events
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: event_id
+            data_tests:
+              - not_null
+              - unique             
+          - name: page_url
+          - name: event_type
+            data_tests:
+              - accepted_values:
+                  values:
+                    - checkout
+                    - package_shipped
+                    - add_to_cart
+                    - page_view
+          - name: user_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: user_id
+                  to: source('sql_server_dbo','users')          
+          - name: product_id
+            data_tests:
+              - relationships:
+                  field: product_id
+                  to: source('sql_server_dbo','product_id')          
+          - name: session_id
+          - name: created_at
+          - name: order_id
+          - name: _fivetran_deleted
+          - name: _fivetran_synced     
+
+      - name: orders
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: order_id
+            data_tests:
+              - not_null
+              - unique          
+          - name: shipping_service
+          - name: shipping_cost
+          - name: address_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: address_id
+                  to: source('sql_server_dbo','addresses')           
+          - name: created_at
+          - name: promo_id
+            data_tests:
+              - relationships:
+                  field: promo_id
+                  to: source('sql_server_dbo','promos')
+                  severity: warn                     
+          - name: estimated_delivery_at
+          - name: order_cost
+          - name: user_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: user_id
+                  to: source('sql_server_dbo','users')
+          - name: order_total
+          - name: delivered_at
+          - name: tracking_id
+          - name: status
+            description: '{{ doc("order_status") }}'
+            data_tests:
+              - accepted_values:
+                  values:
+                    - preparing
+                    - shipped
+                    - delivered             
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: order_items
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: order_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: order_id 
+                  to: source('sql_server_dbo','orders')          
+          - name: product_id
+            data_tests:
+              - not_null
+              - relationships:
+                  field: product_id 
+                  to: source('sql_server_dbo','products')   
+          - name: quantity
+            data_tests:
+              - non_negative_values:
+                  column_name: quantity
+                  severity: warn              
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: products
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: product_id
+            data_tests:
+              - not_null
+              - unique            
+          - name: price
+            data_tests:
+              - positive_values:
+                  column_name: unit_cost       
+          - name: name
+          - name: inventory
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: promos
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: promo_id
+            data_tests:
+              - not_null
+              - unique               
+          - name: discount
+            data_tests:
+              - non_negative_values:
+                  column_name: discount
+                  severity: warn 
+          - name: status
+            data_tests:
+              - accepted_values:
+                  values:
+                    - active
+                    - inactive
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+      - name: users
+        loaded_at_field: _fivetran_synced
+        columns:
+          - name: user_id
+            data_tests:
+              - unique
+              - not_null
+          - name: updated_at
+          - name: address_id
+            data_tests:
+              - not_null
+          - name: last_name
+          - name: created_at
+          - name: phone_number
+            data_tests:
+              - valid_phone_number:
+                  column_name: phone_number
+                  severity: warn
+          - name: total_orders
+            data_tests:
+              - non_negative_values:
+                  column_name: total_orders
+                  severity: warn
+          - name: first_name
+          - name: email
+            data_tests: 
+              - valid_email:
+                  column_name: email
+                  severity: warn
+          - name: _fivetran_deleted
+          - name: _fivetran_synced
+
+
+
+      - name: product_unit_costs
+        columns:
+         - name: product_name
+         - name: unit_cost
+           data_tests:
+              - positive_values:
+                  column_name: unit_cost
+                  severity: warn         
+

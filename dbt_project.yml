@@ -39,8 +39,6 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   my_new_project:
     # Applies to all files under models/example/
-    example:
-      +materialized: table
     
     staging:
       +materialized: view
@@ -57,7 +55,7 @@ models:
 
 seeds:
   +database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  
-  +schema: "SEEDS"
+  +schema: "seeds"
 
 snapshots:
   +transient: false

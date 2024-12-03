@@ -1,0 +1,17 @@
+version: 2
+
+seeds:
+      - name: product_features
+        description: ""
+        columns:
+          - name: product_name
+          - name: location
+          - name: light_requirements
+          - name: size
+          - name: water_needs
+
+      - name: product_unit_cost
+        description: ""
+        columns:
+          - name: product_name
+          - name: unit_cost
