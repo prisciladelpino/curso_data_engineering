@@ -1,0 +1,76 @@
+version: 2
+
+models:
+  - name: agg__budget_sales
+    description: ""
+    columns:
+      - name: year
+        data_type: number
+        description: ""
+
+      - name: month
+        data_type: number
+        description: ""
+
+      - name: product_id
+        data_type: varchar
+        description: ""
+
+      - name: product_name
+        data_type: varchar
+        description: ""
+
+      - name: target_quantity
+        data_type: number
+        description: ""
+
+      - name: monthly_quantity_sold
+        data_type: number
+        description: ""
+
+      - name: target_acomplish
+        data_type: number
+        description: ""
+
+      - name: target_sells_diff_percentage
+        data_type: number
+        description: ""
+
+      - name: monthly_incomes
+        data_type: number
+        description: ""
+
+      - name: monthly_expenses
+        data_type: number
+        description: ""
+
+      - name: date_load_utc
+        data_type: timestamp_tz
+        description: ""
+
+
+
+
+
+  - name: fct_budget
+    description: ""
+    columns:
+      - name: budget_id
+        data_type: varchar
+        description: ""
+
+      - name: product_id
+        data_type: varchar
+        description: ""
+
+      - name: target_quantity
+        data_type: number
+        description: ""
+
+      - name: budget_month
+        data_type: date
+        description: ""
+
+      - name: date_load_utc
+        data_type: timestamp_tz
+        description: ""

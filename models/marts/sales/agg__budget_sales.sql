@@ -1,6 +1,6 @@
 with int_orders as(
     select *
-    from {{ ref('int_orders_per_month') }}
+    from {{ ref('int_orders_grouped_by_month') }}
 ),
 
 fct_budget as (

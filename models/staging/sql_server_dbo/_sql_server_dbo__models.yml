@@ -1,26 +1,6 @@
 version: 2
 
 models:
-
-  - name: stg_date
-    description: ""
-    columns:
-      - name: date_id
-        data_type: varchar
-        description: ""
-
-      - name: date_day
-        data_type: date
-        description: ""
-
-      - name: year
-        data_type: number
-        description: ""
-
-
-
-
-
   - name: stg_sql_server_dbo__addresses
     description: ""
     columns:
@@ -325,6 +305,7 @@ models:
       - name: field_deleted
         data_type: boolean
         description: ""
+
 
 
 

@@ -1,6 +1,22 @@
 version: 2
 
 models:
+
+  - name: base_sql_server_dbo__product_unit_cost
+    description: ""
+    columns:
+      - name: product_name
+        data_type: varchar
+        description: ""
+
+      - name: unit_cost
+        data_type: number
+        description: ""
+
+
+
+
+
   - name: base_sql_server_dbo__products
     description: ""
     columns:
@@ -26,18 +42,4 @@ models:
 
       - name: field_deleted
         data_type: boolean
-        description: ""
-
-
-
-
-  - name: base_sql_server_dbo__product_unit_cost
-    description: ""
-    columns:
-      - name: product_name
-        data_type: varchar
-        description: ""
-
-      - name: unit_cost
-        data_type: number
         description: ""

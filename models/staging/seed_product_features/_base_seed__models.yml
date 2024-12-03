@@ -23,4 +23,3 @@ models:
       - name: water_needs
         data_type: varchar
         description: ""
-

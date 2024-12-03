@@ -1,0 +1,94 @@
+version: 2
+
+models:
+
+  - name: agg_logistic_analysis
+    description: ""
+    columns:
+      - name: order_id
+        data_type: varchar
+        description: ""
+
+      - name: user_id
+        data_type: varchar
+        description: ""
+
+      - name: state
+        data_type: varchar
+        description: ""
+
+      - name: state_id
+        data_type: varchar
+        description: ""
+
+      - name: address_id
+        data_type: varchar
+        description: ""
+
+      - name: order_created_at_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: estimated_delivery_at_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: stimated_days_between
+        data_type: number
+        description: ""
+
+      - name: avergare_stimated_days
+        data_type: number
+        description: ""
+
+      - name: delivered_at_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: days_between
+        data_type: number
+        description: ""
+
+      - name: avergare_days_between
+        data_type: number
+        description: ""
+
+      - name: stimated_delivery_accuracy
+        data_type: number
+        description: ""
+
+      - name: average_stimated_delivery_accuracy
+        data_type: number
+        description: ""
+
+      - name: main_shipping_service
+        data_type: varchar
+        description: ""
+
+      - name: shipping_cost_usd
+        data_type: number
+        description: ""
+
+      - name: delivery_status
+        data_type: varchar
+        description: ""
+
+      - name: tracking_id
+        data_type: varchar
+        description: ""
+
+      - name: shipping_service
+        data_type: varchar
+        description: ""
+
+      - name: date_id
+        data_type: varchar
+        description: ""
+
+      - name: date_load_utc
+        data_type: timestamp_tz
+        description: ""
+
+      - name: field_deleted
+        data_type: boolean
+        description: ""
