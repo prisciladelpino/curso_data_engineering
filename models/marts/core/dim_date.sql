@@ -6,7 +6,7 @@ with stg_time as(
 dim_time as(
     select
         date_id
-        , DATE_DAY                  
+        , date_day                  
         , year  
         , month_number  
         , month_name  

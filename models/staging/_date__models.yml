@@ -1,0 +1,55 @@
+version: 2
+
+models:
+  - name: stg_date
+    description: "Date dimension table providing detailed information about calendar dates for use in time-based analysis."
+    
+    columns:
+     
+      - name: date_id
+        data_type: varchar
+        description: "Unique identifier for the date, typically derived from the date itself in a concatenated format (e.g., YYYYMMDD)."
+     
+      - name: date_day
+        data_type: date
+        description: "Specific calendar date in standard date format (YYYY-MM-DD)."
+     
+      - name: year
+        data_type: number
+        description: "Year component of the date."
+     
+      - name: month_number
+        data_type: number
+        description: "Numeric representation of the month (1 for January, 12 for December)."
+     
+      - name: month_name
+        data_type: varchar
+        description: "Abbreviated name of the month (e.g., Jan, Feb, Mar)."
+     
+      - name: day_of_month
+        data_type: number
+        description: "Day of the month (1-31 depending on the month)."
+    
+      - name: weekday_number
+        data_type: number
+        description: "Numeric representation of the day of the week (1 for Monday, 7 for Sunday)."
+     
+      - name: weekday_name
+        data_type: varchar
+        description: "Full name of the day of the week (e.g., Monday, Tuesday)."
+     
+      - name: quarter
+        data_type: number
+        description: "Quarter of the year (1-4), where 1 represents January to March and 4 represents October to December."
+    
+      - name: quatrimester
+        data_type: number
+        description: "Four-month period of the year (1 for January-April, 2 for May-August, 3 for September-December)."
+     
+      - name: semester
+        data_type: number
+        description: "Six-month period of the year (1 for January-June, 2 for July-December)."
+    
+      - name: day_type
+        data_type: varchar
+        description: "Indicator of whether the date is a weekday or weekend (e.g., 'Weekday', 'Weekend')."

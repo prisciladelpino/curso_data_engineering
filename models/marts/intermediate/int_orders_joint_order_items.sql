@@ -4,25 +4,19 @@
 
 {{ config(
     materialized='incremental',
-    unique_key = ['order_id','product_id'],
+    unique_key = ['order_item_id'],
     on_schema_change='fail',
 )
     }}
 
 with stg_order_items as (
     select * from {{ ref('stg_sql_server_dbo__order_items') }}
-    
-    {% if is_incremental() %}
-        where _fivetran_synced > (select max(date_load_utc) from {{ this }} )
-    {% endif %}
+
 ),
 
 stg_orders as (
     select * from {{ ref('stg_sql_server_dbo__orders') }}
-    
-{% if is_incremental() %}
-	  where _fivetran_synced > (select max(date_load_utc) from {{ this }} )
-{% endif %}    
+  
 ),
 
 stg_products as (
@@ -39,7 +33,8 @@ stg_promos as (
 orders_and_order_items as (
     select
 
-        a.order_id
+        order_item_id 
+        , a.order_id
         , b.user_id
         , b.address_id
         , c.product_id
@@ -50,8 +45,8 @@ orders_and_order_items as (
         , d.discount_in_usd
         , b.order_created_at_utc                                  
         , b.delivered_at_utc
-        , a.date_load_utc as order_items_load_utc
-        , b.date_load_utc as orders_load_utc
+        , a.date_load_utc
+
 
 
 --Ahora vamos a añadir algunas metricas interesantes para facilitar el análisis de ventas
@@ -77,3 +72,7 @@ orders_and_order_items as (
 
 
 Select * from orders_and_order_items
+    
+{% if is_incremental() %}
+	  where date_load_utc > (select max(date_load_utc) from {{ this }} )
+{% endif %} 

@@ -1,0 +1,235 @@
+version: 2
+
+models:
+
+  - name: agg_sales_product_type_state
+    description: "Aggregated model for analyzing sales by product type and state, including profitability and product details."
+    
+    columns:
+     
+      - name: order_item_id
+        data_type: varchar
+        description: "Unique identifier for each item within an order."
+     
+      - name: order_id
+        data_type: varchar
+        description: "Unique identifier for the order containing this item."
+     
+      - name: user_id
+        data_type: varchar
+        description: "Identifier of the user who placed the order."
+    
+      - name: product_name
+        data_type: varchar
+        description: "Name of the product associated with the order item."
+    
+      - name: state
+        data_type: varchar
+        description: "State where the order was delivered or is expected to be delivered."
+    
+      - name: product_quantity_sold
+        data_type: number
+        description: "Quantity of the product sold in this line item."
+     
+      - name: product_price_usd
+        data_type: number
+        description: "Price of the product in USD per unit."
+     
+      - name: gross_line_sale
+        data_type: number
+        description: "Total gross sale value for this line item, calculated as product price multiplied by quantity sold."
+    
+      - name: discount_per_item_usd
+        data_type: number
+        description: "Discount amount applied per item in this line, in USD."
+    
+      - name: total_line_discount
+        data_type: number
+        description: "Total discount applied to this line item, calculated as discount per item multiplied by quantity sold."
+     
+      - name: unit_cost
+        data_type: number
+        description: "Cost of a single unit of the product in USD."
+    
+      - name: line_product_cost_usd
+        data_type: number
+        description: "Total cost of the products in this line item, calculated as unit cost multiplied by quantity sold."
+     
+      - name: net_profit
+        data_type: number
+        description: "Net profit for this line item, calculated as gross line sale minus total discount and line product cost."
+     
+      - name: order_created_at_utc
+        data_type: timestamp_tz
+        description: "Timestamp indicating when the order was created."
+    
+      - name: placement
+        data_type: varchar
+        description: "Placement or setting where the product is typically used, such as 'indoor' or 'outdoor'."
+     
+      - name: light_requirements
+        data_type: varchar
+        description: "Light conditions required for the product, such as 'low light' or 'bright light'."
+    
+      - name: size
+        data_type: varchar
+        description: "Size category of the product, such as 'small', 'medium', or 'large'."
+    
+      - name: water_needs
+        data_type: varchar
+        description: "Water requirements of the product, such as 'low', 'moderate', or 'high'."
+     
+      - name: date_day
+        data_type: date
+        description: "Date associated with the sales data, formatted as a calendar day."
+     
+      - name: year
+        data_type: number
+        description: "Year corresponding to the sales data."
+     
+      - name: month_number
+        data_type: number
+        description: "Month as a number (1 for January, 12 for December)."
+     
+      - name: month_name
+        data_type: varchar
+        description: "Name of the month corresponding to the sales data."
+     
+      - name: day_of_month
+        data_type: number
+        description: "Day of the month corresponding to the sales data."
+     
+      - name: weekday_name
+        data_type: varchar
+        description: "Name of the weekday corresponding to the sales data."
+     
+      - name: quarter
+        data_type: number
+        description: "Quarter of the year (1 to 4) corresponding to the sales data."
+     
+      - name: day_type
+        data_type: varchar
+        description: "Type of day, such as 'Weekday' or 'Weekend'."
+     
+      - name: date_load_utc
+        data_type: timestamp_tz
+        description: "Timestamp indicating when the data was last loaded into the system."
+
+
+
+
+  - name: agg_users_orders
+    description: "Aggregated model summarizing user order statistics, including total orders, costs, and products."
+    
+    columns:
+     
+      - name: user_id
+        data_type: varchar
+        description: "Identifier of the user."
+     
+      - name: first_name
+        data_type: varchar
+        description: "First name of the user."
+     
+      - name: last_name
+        data_type: varchar
+        description: "Last name of the user."
+     
+      - name: email
+        data_type: varchar
+        description: "Email address of the user."
+     
+      - name: phone_number
+        data_type: number
+        description: "Phone number of the user."
+     
+      - name: address
+        data_type: varchar
+        description: "Address associated with the user."
+     
+      - name: zipcode
+        data_type: number
+        description: "Zip code of the user's address."
+     
+      - name: state
+        data_type: varchar
+        description: "State associated with the user's address."
+     
+      - name: country
+        data_type: varchar
+        description: "Country associated with the user's address."
+     
+      - name: total_number_orders
+        data_type: number
+        description: "Total number of orders placed by the user."
+     
+      - name: total_order_cost_usd
+        data_type: number
+        description: "Total cost of all orders placed by the user in USD."
+     
+      - name: total_shipping_cost_usd
+        data_type: number
+        description: "Total shipping cost for all orders placed by the user in USD."
+     
+      - name: total_discount_usd
+        data_type: number
+        description: "Total discounts applied to all orders placed by the user in USD."
+     
+      - name: total_quantity_product
+        data_type: number
+        description: "Total quantity of products purchased by the user across all orders."
+     
+      - name: total_different_products
+        data_type: number
+        description: "Total number of unique products purchased by the user across all orders."
+     
+      - name: date_load_utc
+        data_type: timestamp_tz
+        description: "Timestamp indicating when the data was last loaded into the system."
+
+
+
+
+  - name: agg_users_sessions
+    description: "Aggregated model summarizing user session statistics, including interaction events and session details."
+    columns:
+      
+      - name: session_id
+        data_type: varchar
+        description: "Unique identifier for the session."
+      
+      - name: user_id
+        data_type: varchar
+        description: "Identifier of the user associated with the session."
+      
+      - name: first_name
+        data_type: varchar
+        description: "First name of the user."
+      
+      - name: email
+        data_type: varchar
+        description: "Email address of the user."
+      
+      - name: first_event_time_utc
+        data_type: timestamp_tz
+        description: "Timestamp indicating the first event in the session."
+      
+      - name: last_event_time_utc
+        data_type: timestamp_tz
+        description: "Timestamp indicating the last event in the session."
+     
+      - name: page_view_amount
+        data_type: number
+        description: "Total number of page views during the session."
+     
+      - name: add_to_cart_amount
+        data_type: number
+        description: "Total number of 'add to cart' events during the session."
+     
+      - name: checkout_amount
+        data_type: number
+        description: "Total number of checkout events during the session."
+     
+      - name: package_shipped_amount
+        data_type: number
+        description: "Total number of package shipped events during the session."

@@ -2,9 +2,9 @@ version: 2
 
 sources:
 
-  - name: google_sheets # name of the source 
-    schema: google_sheets # this is the schema our raw data lives in
-    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"  # this is the name of our database
+  - name: google_sheets
+    schema: google_sheets
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB"
     quoting:
       database: false
       schema: false
@@ -17,25 +17,24 @@ sources:
     tables:
 
       - name: budget
-        description: tabla que recoge el presupuesto mensual de cada producto***
+        description: "Table that contains the monthly budget assigned to each product."
         loaded_at_field: _fivetran_synced
         columns:
           - name: _row
-            description: número de la fila, asignado por google sheets
+            description: "Row number assigned by Google Sheets."
           - name: product_id
-            description: clave de identificación única por tipo de producto
+            description: "Unique identifier key for each product type."
             data_tests:
               - not_null
               - relationships:
                   field: product_id
                   to: source('sql_server_dbo','products')             
           - name: quantity
-            description: cantidad del producto asignada a ese mes***
+            description: "Quantity of the product assigned for the specified month."
             data_tests:
               - non_negative_values:
                   column_name: quantity             
           - name: month
-            description: mes al que corresponde el presupuesto. es formato fecha, último día de cada mes.***
+            description: "Month to which the budget corresponds, represented as the last day of each month in date format."
           - name: _fivetran_synced
-            description: fecha de la última carga de datos desde fivetran
-
+            description: "Timestamp of the last sync by Fivetran."

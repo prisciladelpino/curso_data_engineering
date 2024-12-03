@@ -10,21 +10,21 @@ WITH BASE_DATE AS (
 
 SELECT
     {{ dbt_utils.generate_surrogate_key(['DATE_DAY']) }} AS date_id 
-    ,DATE_DAY                 -- Id de la fecha ¿sirve en formato timestamp?
-    , year (DATE_DAY) as year            -- Año
-    , month(DATE_DAY) as month_number    -- Mes (número)
-    , to_char(DATE_DAY, 'Month') as month_name  -- Mes (nombre)
-    , day(DATE_DAY) as day_of_month      -- Día del mes
+    ,date_day                 -- Id de la fecha ¿sirve en formato timestamp?
+    , year (date_day) as year            -- Año
+    , month(date_day) as month_number    -- Mes (número)
+    , to_char(date_day, 'Month') as month_name  -- Mes (nombre)
+    , day(date_day) as day_of_month      -- Día del mes
     , case 
-        when dayofweek(DATE_DAY) = 0 then 7
-        else dayofweek(DATE_DAY)
+        when dayofweek(date_day) = 0 then 7
+        else dayofweek(date_day)
     end as weekday_number                -- Día de la semana (1 = Lunes, 7 = Domingo)
-    , dayname(DATE_DAY) as weekday_name  -- Día de la semana (nombre)
-    , quarter(DATE_DAY) as quarter       -- Trimestre (1-4)
+    , dayname(date_day) as weekday_name  -- Día de la semana (nombre)
+    , quarter(date_day) as quarter       -- Trimestre (1-4)
     , case
-        when month(DATE_DAY) in (1, 2, 3, 4) then 1  -- Cuatrimestre 1
-        when month(DATE_DAY) in (5, 6, 7, 8) then 2  -- Cuatrimestre 2
-        when month(DATE_DAY) in (9, 10, 11, 12) then 3  -- Cuatrimestre 3
+        when month(date_day) in (1, 2, 3, 4) then 1  -- Cuatrimestre 1
+        when month(date_day) in (5, 6, 7, 8) then 2  -- Cuatrimestre 2
+        when month(date_day) in (9, 10, 11, 12) then 3  -- Cuatrimestre 3
     end as quatrimester  -- Cuatrimestre (1-3)
 
     , case

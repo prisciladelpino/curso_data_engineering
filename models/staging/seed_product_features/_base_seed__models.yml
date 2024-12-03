@@ -1,0 +1,28 @@
+version: 2
+
+models:
+
+  - name: base_seed__product_features
+    description: "Base model for product features, containing descriptive characteristics of products."
+    
+    columns:
+     
+      - name: product_name
+        data_type: varchar
+        description: "Name of the product."
+    
+      - name: placement
+        data_type: varchar
+        description: "Sugsested location for the product, most luckily to thrive."
+    
+      - name: light_requirements
+        data_type: varchar
+        description: "Light requirements for the product, indicating if it needs full sunlight, partial shade, or low light."
+     
+      - name: size
+        data_type: varchar
+        description: "Dimensions of the product, which may include height, width, or general scale."
+     
+      - name: water_needs
+        data_type: varchar
+        description: "Water requirements for the product, describing how frequently it needs watering."
