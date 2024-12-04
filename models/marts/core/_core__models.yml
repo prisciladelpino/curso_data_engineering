@@ -2,7 +2,7 @@ version: 2
 
 models:
   - name: dim_addresses
-    description: "Dimension table for addresses, containing location and metadata."
+    description: "Dimension table for addresses, containing location info and metadata."
     
     columns:
      

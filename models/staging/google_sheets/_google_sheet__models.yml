@@ -9,7 +9,10 @@ models:
       - name: budget_id
         data_type: varchar
         description: "Unique identifier for each budget entry."
-     
+        data_tests:
+          - unique
+          - not_null     
+      
       - name: product_id
         data_type: varchar
         description: "Unique identifier key for each product type."
@@ -17,7 +20,11 @@ models:
       - name: target_quantity
         data_type: number
         description: "Quantity of the product targeted for the specified month."
-    
+        data_tests:
+          - non_negative_values:
+              column_name: total_orders
+              severity: warn    
+      
       - name: budget_month
         data_type: date
         description: "Month to which the budget corresponds, represented as the last day of the month."

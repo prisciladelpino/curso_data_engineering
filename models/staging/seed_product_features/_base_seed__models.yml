@@ -14,7 +14,7 @@ models:
       - name: placement
         data_type: varchar
         description: "Sugsested location for the product, most luckily to thrive."
-    
+ 
       - name: light_requirements
         data_type: varchar
         description: "Light requirements for the product, indicating if it needs full sunlight, partial shade, or low light."
