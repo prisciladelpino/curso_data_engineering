@@ -55,7 +55,7 @@ sources:
           - name: page_url
             description: "URL of the page where the event occurred."
           - name: event_type
-            description: "Type of the event, such as checkout or page view."
+            description: "{{ doc('event_type') }}"
             data_tests:
               - accepted_values:
                   values:
