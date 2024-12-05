@@ -5,7 +5,7 @@ WITH stg_states AS (
 
 dim_states AS(
     SELECT DISTINCT
-         {{ dbt_utils.generate_surrogate_key(['state']) }} AS state_id
+         CAST({{ dbt_utils.generate_surrogate_key(['state']) }} AS VARCHAR(50)) AS state_id
         , state
         , country
         , date_load_utc

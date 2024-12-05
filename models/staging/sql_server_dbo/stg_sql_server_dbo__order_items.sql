@@ -19,9 +19,9 @@ WITH src_order_items AS (
 
 renamed_casted_order_items AS (
     SELECT
-        {{ dbt_utils.generate_surrogate_key(['product_id', 'order_id']) }} AS order_item_id        
-        , product_id
-        , order_id
+        CAST({{ dbt_utils.generate_surrogate_key(['product_id', 'order_id']) }} AS varchar(50)) AS order_item_id        
+        , product_id::varchar(50) AS product_id
+        , order_id::varchar(50) AS order_id
         , quantity::int AS product_quantity_sold
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS date_load_utc
         , CASE 

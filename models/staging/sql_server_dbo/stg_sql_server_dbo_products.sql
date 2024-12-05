@@ -15,7 +15,7 @@ renamed_casted_unit_cost AS(
 
 stg_products_completed AS(
     SELECT
-        a.product_id
+        a.product_id::varchar(50) as product_id
         , a.product_name
         , c.unit_cost
         , a.price_usd

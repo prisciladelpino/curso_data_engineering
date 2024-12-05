@@ -13,7 +13,7 @@ models:
     
       - name: placement
         data_type: varchar
-        description: "Sugsested location for the product, most luckily to thrive."
+        description: "{{ doc('placement') }}"
  
       - name: light_requirements
         data_type: varchar
