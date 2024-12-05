@@ -9,7 +9,7 @@ WITH BASE_DATE AS (
 )
 
 SELECT
-    {{ dbt_utils.generate_surrogate_key(['DATE_DAY']) }} AS date_id 
+    CAST({{ dbt_utils.generate_surrogate_key(['DATE_DAY']) }} AS varchar(50)) AS date_id 
     ,date_day                 -- Id de la fecha ¿sirve en formato timestamp?
     , year (date_day) as year            -- Año
     , month(date_day) as month_number    -- Mes (número)

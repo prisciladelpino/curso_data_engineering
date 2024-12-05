@@ -24,7 +24,10 @@ models:
       - name: product_id
         data_type: varchar
         description: "Unique identifier for each product."
-     
+        data_tests:
+            - unique
+            - not_null      
+      
       - name: product_name
         data_type: varchar
         description: "Name of the product."
@@ -32,7 +35,11 @@ models:
       - name: price_usd
         data_type: number
         description: "Price of the product in USD."
-     
+        data_tests:
+          - non_negative_values:
+              column_name: total_orders
+              severity: warn     
+      
       - name: stock
         data_type: number
         description: "Current inventory level of the product."

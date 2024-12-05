@@ -18,7 +18,7 @@ WITH src_addresses AS (
 
 renamed_casted_addresses AS (
     SELECT
-          address_id
+          address_id::varchar(50) AS address_id
         , address::varchar(100) as address
         , state::varchar(50) AS state
         , country::varchar(50) AS country

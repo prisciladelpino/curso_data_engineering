@@ -10,6 +10,11 @@ models:
       - name: address_id
         data_type: varchar
         description: "Unique identifier for each address."
+        data_tests: 
+          - not_null
+          - unique
+              
+              
       
       - name: address
         data_type: varchar
@@ -46,6 +51,9 @@ models:
       - name: event_id
         data_type: varchar
         description: "Unique identifier for each event."
+        data_tests: 
+          - not_null
+          - unique
       
       - name: session_id
         data_type: varchar
@@ -54,7 +62,14 @@ models:
       - name: event_type
         data_type: varchar
         description: "Type of the event, such as checkout, page view, or add to cart."
-      
+        data_tests:
+          - accepted_values:
+              values:
+                - checkout
+                - package_shipped
+                - add_to_cart
+                - page_view
+
       - name: page_url
         data_type: varchar
         description: "URL of the page where the event occurred."
@@ -62,6 +77,8 @@ models:
       - name: user_id
         data_type: varchar
         description: "Identifier for the user associated with the event."
+        data_tests: 
+          - not_null
      
       - name: product_id
         data_type: varchar
@@ -94,6 +111,9 @@ models:
       - name: order_item_id
         data_type: varchar
         description: "Unique identifier for each order item."
+        data_tests: 
+          - not_null
+          - unique
      
       - name: product_id
         data_type: varchar
@@ -158,7 +178,13 @@ models:
       - name: delivery_status
         data_type: varchar
         description: "Current delivery status of the order."
-     
+        data_tests:
+          - accepted_values:
+              values:
+                - preparing
+                - shipped
+                - delivered
+
       - name: tracking_id
         data_type: varchar
         description: "Tracking identifier provided by the shipping service."
@@ -194,7 +220,10 @@ models:
       - name: promo_id
         data_type: varchar
         description: "Unique identifier for each promotion."
-     
+        data_tests:
+          - not_null
+          - unique    
+
       - name: promo_desc
         data_type: varchar
         description: "Description of the promotion."
@@ -226,7 +255,10 @@ models:
       - name: user_id
         data_type: varchar
         description: "Unique identifier for each user."
-     
+        data_tests:
+            - unique
+            - not_null     
+      
       - name: first_name
         data_type: varchar
         description: "First name of the user."
@@ -242,7 +274,11 @@ models:
       - name: phone_number
         data_type: number
         description: "Phone number of the user."
-     
+        data_tests:
+          - valid_phone_number:
+              column_name: phone_number
+              severity: warn     
+    
       - name: email
         data_type: varchar
         description: "Email address of the user."
@@ -274,7 +310,10 @@ models:
       - name: product_id
         data_type: varchar
         description: "Unique identifier for each product."
-    
+        data_tests:
+            - unique
+            - not_null     
+   
       - name: product_name
         data_type: varchar
         description: "Name of the product."
@@ -286,6 +325,10 @@ models:
       - name: price_usd
         data_type: number
         description: "Price of the product in USD."
+        data_tests:
+          - non_negative_values:
+              column_name: total_orders
+              severity: warn    
     
       - name: stock
         data_type: number
@@ -293,11 +336,11 @@ models:
      
       - name: placement
         data_type: varchar
-        description: "Placement or category of the product within the inventory."
+        description: "Placement or category of the product, such as indoor or outdoor."
      
       - name: light_requirements
         data_type: varchar
-        description: "Light requirements for the product, such as indoor or outdoor."
+        description: "Light requirements for the product."
      
       - name: size
         data_type: varchar

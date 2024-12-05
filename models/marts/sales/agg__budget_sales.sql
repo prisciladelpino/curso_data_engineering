@@ -10,8 +10,9 @@ fct_budget as (
 
 comparison_mart as(
     select
-        year
-        , month
+        b.year
+        , b.month
+        , budget_month
         , a.product_id
         , product_name
         , target_quantity
@@ -23,8 +24,9 @@ comparison_mart as(
         , monthly_expenses
         , date_load_utc
     from fct_budget as a
-    left join int_orders as b
+    right join int_orders as b
         on a.product_id = b.product_id
+        where month(budget_month) = b.month
 )
 
 select * from comparison_mart

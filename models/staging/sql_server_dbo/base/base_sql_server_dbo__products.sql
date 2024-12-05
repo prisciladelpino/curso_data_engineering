@@ -7,7 +7,7 @@ base_renamed_casted_products AS (
     
     SELECT
         
-          product_id
+          product_id::varchar(50) as product_id
         , name::varchar(50) AS product_name
         , price::DECIMAL(10,2) AS price_usd
         , inventory::NUMBER(5,0) AS stock

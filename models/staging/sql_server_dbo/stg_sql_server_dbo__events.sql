@@ -21,14 +21,14 @@ WITH src_events AS (
 
 renamed_casted_events AS (
     SELECT
-          event_id
-        , session_id
+          event_id::varchar(50) AS event_id
+        , session_id::varchar(50) AS session_id
         , event_type::varchar(50) AS event_type
         , page_url::varchar(100) AS page_url
-        , {{ dbt_utils.generate_surrogate_key(['user_id']) }} AS user_id
-        , product_id
+        , CAST({{ dbt_utils.generate_surrogate_key(['user_id']) }} AS varchar(50)) AS user_id
+        , product_id::varchar(50) AS product_id
         , CONVERT_TIMEZONE('UTC', created_at) AS created_at_utc
-        , order_id
+        , order_id::varchar(50) AS order_id
         , CONVERT_TIMEZONE('UTC', _fivetran_synced) AS date_load_utc
         , CASE 
             WHEN _fivetran_deleted IS NULL THEN FALSE 

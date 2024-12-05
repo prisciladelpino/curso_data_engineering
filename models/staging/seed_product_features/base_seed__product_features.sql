@@ -17,6 +17,8 @@ renamed_casted_product_features AS(
         , size::varchar(50) AS size
         , water_needs::varchar(50) AS water_needs
     FROM base_product_features
+     
 )
 
 select * from renamed_casted_product_features
+WHERE product_name IS NOT null
