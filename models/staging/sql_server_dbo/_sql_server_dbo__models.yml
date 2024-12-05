@@ -61,7 +61,7 @@ models:
      
       - name: event_type
         data_type: varchar
-        description: "Type of the event, such as checkout, page view, or add to cart."
+        description: "{{ doc('event_type') }}"
         data_tests:
           - accepted_values:
               values:
@@ -177,7 +177,7 @@ models:
      
       - name: delivery_status
         data_type: varchar
-        description: "Current delivery status of the order."
+        description: "{{ doc('order_status') }}"
         data_tests:
           - accepted_values:
               values:
