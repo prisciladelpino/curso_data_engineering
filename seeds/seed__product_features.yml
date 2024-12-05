@@ -6,9 +6,15 @@ seeds:
         columns:
           - name: product_name
           - name: location
+            description: "{{ doc('placement') }}"          
           - name: light_requirements
+            description: "{{ doc('light_requirements') }}"    
           - name: size
+            description: "{{ doc('size') }}"        
           - name: water_needs
+            description: "{{ doc('water_needs') }}"         
+
+
 
       - name: product_unit_cost
         description: ""
