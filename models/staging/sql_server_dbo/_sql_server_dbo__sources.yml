@@ -94,6 +94,14 @@ sources:
               - unique          
           - name: shipping_service
             description: "Shipping service used for the order delivery."
+          - name: status
+            description: "{{ doc('order_status') }}"
+            data_tests:
+              - accepted_values:
+                  values:
+                    - preparing
+                    - shipped
+                    - delivered 
           - name: shipping_cost
             description: "Cost of shipping for the order in USD."
           - name: address_id
@@ -103,6 +111,13 @@ sources:
               - relationships:
                   field: address_id
                   to: source('sql_server_dbo','addresses')           
+          - name: user_id
+            description: "Identifier of the user who placed the order."
+            data_tests:
+              - not_null
+              - relationships:
+                  field: user_id
+                  to: source('sql_server_dbo','users')          
           - name: created_at
             description: "Timestamp indicating when the order was created."
           - name: promo_id
@@ -116,27 +131,12 @@ sources:
             description: "Estimated delivery date for the order."
           - name: order_cost
             description: "Total cost of the order in USD."
-          - name: user_id
-            description: "Identifier of the user who placed the order."
-            data_tests:
-              - not_null
-              - relationships:
-                  field: user_id
-                  to: source('sql_server_dbo','users')
           - name: order_total
             description: "Total amount for the order including discounts and taxes."
           - name: delivered_at
             description: "Timestamp indicating when the order was delivered."
           - name: tracking_id
-            description: "Tracking identifier provided by the shipping service."
-          - name: status
-            description: "Current status of the order."
-            data_tests:
-              - accepted_values:
-                  values:
-                    - preparing
-                    - shipped
-                    - delivered             
+            description: "Tracking identifier provided by the shipping service."          
           - name: _fivetran_deleted
             description: "Indicates if the record has been marked as deleted by Fivetran."
           - name: _fivetran_synced

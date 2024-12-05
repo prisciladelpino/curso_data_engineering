@@ -17,12 +17,12 @@ models:
  
       - name: light_requirements
         data_type: varchar
-        description: "Light requirements for the product, indicating if it needs full sunlight, partial shade, or low light."
+        description: "{{ doc('light_requirements') }}"
      
       - name: size
         data_type: varchar
-        description: "Dimensions of the product, which may include height, width, or general scale."
+        description: "{{ doc('size') }}"
      
       - name: water_needs
         data_type: varchar
-        description: "Water requirements for the product, describing how frequently it needs watering."
+        description: "{{ doc('water_needs') }}"
